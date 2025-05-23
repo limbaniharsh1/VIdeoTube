@@ -76,7 +76,7 @@ export default function Header() {
         <>
           {!isMobile && (
             <div
-              className={cn("mx-auto flex max-w-[600px] flex-1 items-center px-4", searchFocused && "md:max-w-[700px]")}
+              className={cn("ms-auto flex max-w-[600px] flex-1 items-center px-4", searchFocused && "md:max-w-[700px]")}
             >
               <div className="relative flex-1">
                 <input
@@ -95,13 +95,13 @@ export default function Header() {
               >
                 <Search className="h-5 w-5 text-gray-500 dark:text-gray-400" />
               </button>
-              <button variant="ghost" size="icon" className="ml-2 hidden text-black dark:text-white md:flex">
+              {/* <button variant="ghost" size="icon" className="ml-2 hidden text-black dark:text-white md:flex">
                 <Mic className="h-5 w-5" />
-              </button>
+              </button> */}
             </div>
           )}
 
-          <div className="flex items-center gap-1 md:gap-2">
+          {/* <div className="flex items-center gap-1 md:gap-2">
             {isMobile && (
               <button
                 variant="ghost"
@@ -121,7 +121,7 @@ export default function Header() {
             <button variant="ghost" size="icon" className="text-black dark:text-white">
               <User className="h-6 w-6" />
             </button>
-          </div>
+          </div> */}
         </>
       )}
     </header>

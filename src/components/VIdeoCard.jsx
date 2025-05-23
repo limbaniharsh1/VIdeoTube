@@ -5,16 +5,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { MoreVertical } from "lucide-react";
 import { cn } from "@/hooks/commonHooks";
+import {
+  formatDuration,
+  formatTimeAgo,
+  formatViewsCount,
+} from "@/helpers/commonFunctions";
 
 export default function VideoCard({
-  id,
-  thumbnail,
-  title,
-  channel,
-  channelImage,
-  views,
-  timestamp,
-  duration,
+  _id = "",
+  thumbnail = "",
+  title = "Video Title",
+  description = "Video Description",
+  channel = "Channel Name",
+  channelImage = "",
+  views = "1M views",
+  createdAt = "",
+  duration = "1:00",
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -25,21 +31,27 @@ export default function VideoCard({
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative mb-2 overflow-hidden rounded-xl">
-        <Link href={`/watch?v=${id}`}>
+        <Link href={`/${_id}`}>
           <div className="aspect-video w-full overflow-hidden">
-            <Image
-              src={thumbnail || "/placeholder.svg"}
-              alt={title}
-              width={320}
-              height={180}
-              className={cn(
-                "h-full w-full object-cover transition-transform duration-200",
-                isHovered && "scale-110"
-              )}
-            />
+            {thumbnail ? (
+              <Image
+                src={thumbnail || "/placeholder.svg"}
+                alt={title}
+                width={320}
+                height={180}
+                className={cn(
+                  "h-full w-full object-cover transition-transform duration-200",
+                  isHovered && "scale-110"
+                )}
+              />
+            ) : (
+              <div className="w-full h-full bg-gray-700 flex items-center justify-center">
+                <span className="text-gray-500">No Thumbnail</span>
+              </div>
+            )}
           </div>
           <div className="absolute bottom-1 right-1 rounded bg-black bg-opacity-80 px-1 py-0.5 text-xs text-white">
-            {duration}
+            {formatDuration(duration)}
           </div>
         </Link>
       </div>
@@ -55,9 +67,11 @@ export default function VideoCard({
         </div> */}
         <div className="flex-1">
           <h3 className="mb-1 line-clamp-2 text-sm font-medium">{title}</h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400">{channel}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+            {description}
+          </p>
           <p className="text-xs text-gray-500 dark:text-gray-400">
-            {views} • {timestamp}
+            {formatViewsCount(views)} Views • {formatTimeAgo(createdAt)}
           </p>
         </div>
         <div className="ml-1 self-start">
