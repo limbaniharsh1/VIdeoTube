@@ -21,4 +21,5 @@ export const CATEGORY = {
 export const VIDEO = {
   UPLOAD: `${video}/upload`,
   GET_ALL: `${video}/get-all`,
+  GET: `${video}/get`,
 };

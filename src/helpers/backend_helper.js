@@ -44,3 +44,7 @@ export const uploadVideo = (data) => {
 export const getAllVideo = (data) => {
   return api.get(url.VIDEO.GET_ALL, data);
 };
+
+export const getVideo = (id) => {
+  return api.get(url.VIDEO.GET + `/${id}`);
+};

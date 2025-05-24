@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllVideoThunk, uploadVideoThunk } from "./thunk";
+import { getAllVideoThunk, getVideoThunk, uploadVideoThunk } from "./thunk";
 
 const initialState = {
   data: [],
+  singleVideo: {},
   loading: false,
   error: null,
 };
@@ -35,6 +36,20 @@ const slice = createSlice({
       state.data = action.payload.data;
     });
     builder.addCase(getAllVideoThunk.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    });
+
+    // Get All
+    builder.addCase(getVideoThunk.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(getVideoThunk.fulfilled, (state, action) => {
+      state.loading = false;
+      state.singleVideo = action.payload.data;
+    });
+    builder.addCase(getVideoThunk.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload;
     });
