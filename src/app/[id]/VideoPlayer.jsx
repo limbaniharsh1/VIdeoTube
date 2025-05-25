@@ -71,16 +71,18 @@ export default function VideoPlayer({ data, loading }) {
       <div className="relative w-full lg:w-[70%] overflow-hidden rounded-xl">
         <div className="aspect-video w-full relative">
           {/* Error message */}
-          {error && (
+          {/* {!hasStartedPlaying && error && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/70 z-10">
               <button
-                onClick={() => videoRef.current?.play()}
+                onClick={() => {
+                  videoRef.current?.play(), setError(null);
+                }}
                 className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
               >
                 {error}
               </button>
             </div>
-          )}
+          )} */}
 
           {/* Loader + Thumbnail */}
           {/* {loading ||
@@ -110,13 +112,14 @@ export default function VideoPlayer({ data, loading }) {
           {!loading && (
             <video
               ref={videoRef}
-            //   muted
+              //   muted
               autoPlay
               playsInline
               className="h-full w-full"
               poster={!hasStartedPlaying ? thumbnail : undefined}
               controls
               preload="auto"
+              controlsList="nodownload"
               key={videoUrl} // Force re-render when URL changes
             >
               {videoUrl && <source src={videoUrl} type="video/mp4" />}
