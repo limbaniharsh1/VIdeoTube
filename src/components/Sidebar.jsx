@@ -107,11 +107,7 @@ export default function Sidebar() {
         {data?.map((link, index) => (
           <Link
             key={index}
-            href={commonQuery({
-              title: QUERY_TITLES.CATEGORY,
-              value: link?._id,
-              page: 1,
-            })}
+            href={`/${QUERY_TITLES.CATEGORY}/${link._id}`}
             className={cn(
               "flex items-center px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800",
               expanded ? "mx-2 rounded-lg" : "justify-center"

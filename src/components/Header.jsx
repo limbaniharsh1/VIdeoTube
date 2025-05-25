@@ -1,24 +1,66 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Menu, Search, Bell, Video, Mic, User, X } from "lucide-react"
-import { cn, useMediaQuery } from "@/hooks/commonHooks"
+import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
+import { Menu, Search, Bell, Video, Mic, User, X } from "lucide-react";
+import { cn, useMediaQuery } from "@/hooks/commonHooks";
+import { useRouter, useSearchParams } from "next/navigation";
+import { QUERY_TITLES } from "@/helpers/enum";
 
 export default function Header() {
-  const [searchFocused, setSearchFocused] = useState(false)
-  const [searchValue, setSearchValue] = useState("")
-  const isMobile = useMediaQuery("(max-width: 768px)")
-  const [mobileSearchVisible, setMobileSearchVisible] = useState(false)
+  const [searchFocused, setSearchFocused] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+  const isMobile = useMediaQuery("(max-width: 768px)");
+  const [mobileSearchVisible, setMobileSearchVisible] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Set initial search value from URL query params
+  useEffect(() => {
+    const q = searchParams.get("q");
+    if (q) setSearchValue(decodeURIComponent(q));
+    else setSearchValue("");
+  }, [searchParams]);
+
+  const handleSearch = useCallback(
+    (e) => {
+      if (e.key === "Enter" && e.target.value.trim() !== "") {
+        router.push(
+          `/${QUERY_TITLES.SEARCH}?q=${encodeURIComponent(
+            e.target.value.trim()
+          )}`
+        );
+      }
+      setSearchValue(e.target.value);
+    },
+    [router]
+  );
+
+  const handleSearchBtn = useCallback(() => {
+    const inputElement = document.getElementById("search");
+    const value = inputElement?.value.trim();
+    if (value) {
+      router.push(`/${QUERY_TITLES.SEARCH}?q=${encodeURIComponent(value)}`);
+    }
+    else(router.push(`/`));
+  }, []);
 
   return (
     <header className="sticky top-0 z-50 flex h-14 w-full items-center justify-between border-b bg-white px-4 dark:border-gray-800 dark:bg-[#0f0f0f] md:h-16 md:px-6">
       <div className="flex items-center">
-        <button variant="ghost" size="icon" className="mr-2 text-black dark:text-white md:mr-4" aria-label="Menu">
+        <button
+          variant="ghost"
+          size="icon"
+          className="mr-2 text-black dark:text-white md:mr-4"
+          aria-label="Menu"
+        >
           <Menu className="h-6 w-6" />
         </button>
-        <Link href="/" className="flex items-center text-xl text-black dark:text-white">
-        Video Tube
+        <Link
+          href="/"
+          className="flex items-center text-xl text-black dark:text-white"
+        >
+          Video Tube
           {/* <svg viewBox="0 0 90 20" className="h-5 w-20 fill-current text-black dark:text-white" focusable="false">
             <svg viewBox="0 0 90 20" preserveAspectRatio="xMidYMid meet">
               <g>
@@ -59,7 +101,8 @@ export default function Header() {
                 placeholder="Search"
                 className="h-10 w-full rounded-l-full border-r-0 pl-4 pr-10"
                 value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={handleSearch}
+                onKeyDown={handleSearch}
                 onFocus={() => setSearchFocused(true)}
                 onBlur={() => setSearchFocused(false)}
               />
@@ -76,20 +119,28 @@ export default function Header() {
         <>
           {!isMobile && (
             <div
-              className={cn("ms-auto flex max-w-[600px] flex-1 items-center px-4", searchFocused && "md:max-w-[700px]")}
+              className={cn(
+                "ms-auto flex max-w-[600px] flex-1 items-center px-4",
+                searchFocused && "md:max-w-[700px]"
+              )}
             >
               <div className="relative flex-1">
                 <input
+                  id="search"
                   type="search"
                   placeholder="Search"
-                  className="h-10 w-full rounded-l-full border-r-0 pl-4 pr-10"
+                  className={`${
+                    !searchFocused && "border border-gray-600"
+                  } h-10 w-full rounded-l-full border-r-0 pl-4 pr-10`}
                   value={searchValue}
-                  onChange={(e) => setSearchValue(e.target.value)}
+                  onChange={handleSearch}
+                  onKeyDown={handleSearch}
                   onFocus={() => setSearchFocused(true)}
                   onBlur={() => setSearchFocused(false)}
                 />
               </div>
               <button
+              onClick={handleSearchBtn}
                 className="h-10 rounded-l-none rounded-r-full bg-gray-100 px-4 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
                 variant="ghost"
               >
@@ -125,5 +176,5 @@ export default function Header() {
         </>
       )}
     </header>
-  )
+  );
 }
