@@ -71,7 +71,7 @@ export default function Sidebar() {
 
   if (isMobile) {
     return (
-      <div className="fixed bottom-0 left-0 z-50 flex w-full justify-around border-t bg-white py-2 dark:border-gray-800 dark:bg-[#0f0f0f]">
+      <div className="fixed bottom-0 left-0 z-50 flex w-full justify-around border-t py-2 border-gray-800 bg-[#0f0f0f]">
         {mainLinks.map((link, index) => (
           <Link
             key={index}
@@ -89,7 +89,7 @@ export default function Sidebar() {
   return (
     <aside
       className={cn(
-        "sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto border-r bg-white transition-all dark:border-gray-800 dark:bg-[#0f0f0f]",
+        "sticky top-16 h-[calc(100vh-4rem)] overflow-y-auto border-r  transition-all border-gray-800 bg-[#0f0f0f]",
         expanded ? "w-56" : "w-[72px]"
       )}
     >
@@ -97,7 +97,7 @@ export default function Sidebar() {
         <Link
           href="/"
           className={cn(
-            "flex items-center px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800",
+            "flex items-center px-3 py-2 hover:bg-gray-800",
             expanded ? "mx-2 rounded-lg" : "justify-center"
           )}
         >
@@ -109,7 +109,7 @@ export default function Sidebar() {
             key={index}
             href={`/${QUERY_TITLES.CATEGORY}/${link._id}`}
             className={cn(
-              "flex items-center px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800",
+              "flex items-center px-3 py-2 hover:bg-gray-800",
               expanded ? "mx-2 rounded-lg" : "justify-center"
             )}
           >
@@ -164,7 +164,7 @@ export default function Sidebar() {
             <Link
               key={index}
               href="#"
-              className="flex justify-center px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="flex justify-center px-3 py-2 hover:bg-gray-800"
             >
               <link.icon className="h-5 w-5" />
             </Link>

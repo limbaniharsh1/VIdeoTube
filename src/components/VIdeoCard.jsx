@@ -179,10 +179,10 @@ export default function VideoCard({
       <div className="flex">
         <div className="flex-1">
           <h3 className="mb-1 line-clamp-2 text-sm font-medium">{title}</h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+          <p className="text-xs text-gray-400 line-clamp-2">
             {description}
           </p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
+          <p className="text-xs text-gray-400">
             {formatViewsCount(views)} Views • {formatTimeAgo(createdAt)}
           </p>
         </div>

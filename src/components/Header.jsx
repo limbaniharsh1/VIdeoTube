@@ -46,19 +46,19 @@ export default function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 flex h-14 w-full items-center justify-between border-b bg-white px-4 dark:border-gray-800 dark:bg-[#0f0f0f] md:h-16 md:px-6">
+    <header className="sticky top-0 z-50 flex h-14 w-full items-center justify-between border-b px-4 border-gray-800 bg-[#0f0f0f] md:h-16 md:px-6">
       <div className="flex items-center">
         <button
           variant="ghost"
           size="icon"
-          className="mr-2 text-black dark:text-white md:mr-4"
+          className="mr-2 text-white md:mr-4"
           aria-label="Menu"
         >
           <Menu className="h-6 w-6" />
         </button>
         <Link
           href="/"
-          className="flex items-center text-xl text-black dark:text-white"
+          className="flex items-center text-xl text-white"
         >
           Video Tube
           {/* <svg viewBox="0 0 90 20" className="h-5 w-20 fill-current text-black dark:text-white" focusable="false">
@@ -85,11 +85,11 @@ export default function Header() {
       </div>
 
       {isMobile && mobileSearchVisible ? (
-        <div className="absolute left-0 top-0 flex h-14 w-full items-center bg-white px-4 dark:bg-[#0f0f0f]">
+        <div className="absolute left-0 top-0 flex h-14 w-full items-center px-4 bg-[#0f0f0f]">
           <button
             variant="ghost"
             size="icon"
-            className="mr-2 text-black dark:text-white"
+            className="mr-2 text-white"
             onClick={() => setMobileSearchVisible(false)}
           >
             <X className="h-5 w-5" />
@@ -108,10 +108,10 @@ export default function Header() {
               />
             </div>
             <button
-              className="h-10 rounded-l-none rounded-r-full bg-gray-100 px-4 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+              className="h-10 rounded-l-none rounded-r-full px-4  bg-gray-700 hover:bg-gray-600"
               variant="ghost"
             >
-              <Search className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+              <Search className="h-5 w-5  text-gray-400" />
             </button>
           </div>
         </div>
@@ -141,10 +141,10 @@ export default function Header() {
               </div>
               <button
               onClick={handleSearchBtn}
-                className="h-10 rounded-l-none rounded-r-full bg-gray-100 px-4 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+                className="h-10 rounded-l-none rounded-r-full  px-4  bg-gray-700 hover:bg-gray-600"
                 variant="ghost"
               >
-                <Search className="h-5 w-5 text-gray-500 dark:text-gray-400" />
+                <Search className="h-5 w-5 text-gray-400" />
               </button>
               {/* <button variant="ghost" size="icon" className="ml-2 hidden text-black dark:text-white md:flex">
                 <Mic className="h-5 w-5" />
