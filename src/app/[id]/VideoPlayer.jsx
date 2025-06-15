@@ -18,22 +18,16 @@ export default function VideoPlayer({ data, loading }) {
     const videoElement = videoRef.current;
     if (!videoElement) return;
 
-    console.log("Video URL:", videoUrl); // Debugging
-    console.log("Video element readyState:", videoElement.readyState); // Debugging
-
     const handlers = {
       canplay: () => {
-        console.log("Can play event fired");
         setIsLoading(false);
         if (!hasStartedPlaying) {
           videoElement.play().catch((err) => {
-            console.log("Autoplay failed, waiting for user interaction:", err);
             setError("Click to play video");
           });
         }
       },
       playing: () => {
-        console.log("Playing event fired");
         setIsLoading(false);
         setHasStartedPlaying(true);
         setError(null);
@@ -44,8 +38,7 @@ export default function VideoPlayer({ data, loading }) {
         setIsLoading(false);
       },
       waiting: () => {
-        console.log("Waiting event fired");
-        setIsLoading(true);
+         setIsLoading(true);
       },
     };
 
