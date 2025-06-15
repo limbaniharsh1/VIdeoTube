@@ -3,6 +3,12 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn, useMediaQuery } from "@/hooks/commonHooks";
 import { useSelector } from "react-redux";
 import Link from "next/link";
@@ -145,7 +151,31 @@ export default function Categories({
         {/* dropdown with slugs */}
         {categories.length > 0 && (
           <div className="px-2">
-            
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                >
+                  All
+                  <ChevronDown className="ml-1 h-3 w-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="max-h-60 w-48 overflow-y-auto bg-black"
+              >
+                {categories.map((c) => (
+                  <DropdownMenuItem
+                    key={c.slug || "all"}
+                    onClick={() => handleCategoryClick(c)}
+                  >
+                    {c.name}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         )}
       </div>
@@ -178,7 +208,35 @@ export default function Categories({
         ))}
 
         {hiddenCategories.length > 0 && (
-         <div></div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="secondary"
+                size="sm"
+                className="rounded-full bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+              >
+                More
+                <ChevronDown className="ml-1 h-3 w-3" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className="max-h-60 w-48 overflow-y-auto"
+            >
+              {hiddenCategories.map((c) => (
+                <DropdownMenuItem
+                  key={c.slug}
+                  onClick={() => handleCategoryClick(c)}
+                  className={cn(
+                    selectedCategory === c.slug &&
+                      "bg-gray-100 dark:bg-gray-800"
+                  )}
+                >
+                  {c.name}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
         )}
       </div>
     </div>
