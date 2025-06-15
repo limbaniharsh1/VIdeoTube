@@ -6,6 +6,8 @@ import { Menu, Search, Bell, Video, Mic, User, X } from "lucide-react";
 import { cn, useMediaQuery } from "@/hooks/commonHooks";
 import { useRouter, useSearchParams } from "next/navigation";
 import { QUERY_TITLES } from "@/helpers/enum";
+import { getAllCategoryThunk } from "@/store/category/thunk";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Header() {
   const [searchFocused, setSearchFocused] = useState(false);
@@ -14,6 +16,8 @@ export default function Header() {
   const [mobileSearchVisible, setMobileSearchVisible] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const dispatch = useDispatch();
+   const { data } = useSelector((state) => state.Category);
 
   // Set initial search value from URL query params
   useEffect(() => {
@@ -41,25 +45,27 @@ export default function Header() {
     const value = inputElement?.value.trim();
     if (value) {
       router.push(`/${QUERY_TITLES.SEARCH}?q=${encodeURIComponent(value)}`);
+    } else router.push(`/`);
+  }, []);
+
+  useEffect(() => {
+    if (!data?.length > 0) {
+      dispatch(getAllCategoryThunk());
     }
-    else(router.push(`/`));
   }, []);
 
   return (
     <header className="sticky top-0 z-50 flex h-14 w-full items-center justify-between border-b px-4 border-gray-800 bg-[#0f0f0f] md:h-16 md:px-6">
       <div className="flex items-center">
-        <button
+        {/* <button
           variant="ghost"
           size="icon"
           className="mr-2 text-white md:mr-4"
           aria-label="Menu"
         >
           <Menu className="h-6 w-6" />
-        </button>
-        <Link
-          href="/"
-          className="flex items-center text-xl text-white"
-        >
+        </button> */}
+        <Link href="/" className="flex items-center text-xl text-white">
           Video Tube
           {/* <svg viewBox="0 0 90 20" className="h-5 w-20 fill-current text-black dark:text-white" focusable="false">
             <svg viewBox="0 0 90 20" preserveAspectRatio="xMidYMid meet">
@@ -140,7 +146,7 @@ export default function Header() {
                 />
               </div>
               <button
-              onClick={handleSearchBtn}
+                onClick={handleSearchBtn}
                 className="h-10 rounded-l-none rounded-r-full  px-4  bg-gray-700 hover:bg-gray-600"
                 variant="ghost"
               >

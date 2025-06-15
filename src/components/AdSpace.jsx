@@ -14,8 +14,8 @@ export default function AdSpace() {
   }
 
   return (
-    <div className="sticky top-16 hidden w-[300px] flex-shrink-0 md:block lg:w-[300px]">
-      <div className="m-4 ml-0 mt-0 flex h-[600px] flex-col items-center justify-center rounded-lg p-4 text-center text-sm bg-gray-800 text-gray-400">
+    <div className="sticky top-20 hidden w-[300px] flex-shrink-0 md:block lg:w-[280px]">
+      <div className="m-4 ml-0 mt-0 flex h-[calc(100vh-100px)] flex-col items-center justify-center rounded-lg p-4 text-center text-sm bg-gray-900 text-gray-400">
         <p>Advertisement</p>
         <p className="mt-2 text-xs">300x600</p>
       </div>
